@@ -2,14 +2,17 @@
 
 import React from 'react'
 import { validateProps, ARROW } from './helpers'
-import type { Props, State } from './types'
+import type { Props, State, SortInfo } from './types'
 
 export default class ReactTable extends React.Component {
   props: Props;
   state: State = { sort: null };
 
+  get sort(): SortInfo {
+    return this.state.sort || this.props.initialSort || []
+  }
   findSortItemByKey(column: string): number {
-    const sort = this.state.sort
+    const sort = this.sort
     if (Array.isArray(sort)) {
       for (let i = 0, length = sort.length; i < length; ++i) {
         if (sort[i].column === column) {
@@ -21,7 +24,7 @@ export default class ReactTable extends React.Component {
   }
   generateSortCallback(column: string) {
     return (e: MouseEvent) => {
-      let sort = this.state.sort || []
+      let sort = this.sort
       const append = e.shiftKey
 
       const index = this.findSortItemByKey(column)
@@ -42,7 +45,7 @@ export default class ReactTable extends React.Component {
     }
   }
   renderHeaderIcon(column: string) {
-    const sort = this.state.sort
+    const sort = this.sort
     const index = sort ? this.findSortItemByKey(column) : -1
     let icon = ARROW.BOTH
     if (sort && index !== -1) {
@@ -66,7 +69,7 @@ export default class ReactTable extends React.Component {
     validateProps(this.props)
 
     let rows = givenRows
-    const sortInfo = this.state.sort || this.props.initialSort || []
+    const sortInfo = this.sort
     if (sortInfo.length) {
       rows = sort(sortInfo, rows)
     }
