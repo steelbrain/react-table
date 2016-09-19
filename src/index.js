@@ -28,7 +28,7 @@ export default class ReactTable extends React.Component {
       rows: givenRows,
       columns,
 
-      classTable = '',
+      classTable = 'sb-table',
       classHeader = '',
       classHeaderRow = '',
       classHeaderColumn = '',

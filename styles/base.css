@@ -1,0 +1,29 @@
+.sb-table {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #191A1F;
+  text-align: left;
+  color: #939CAA;
+  font-size: 14px;
+}
+
+.sb-table thead {
+  background-color: #282C34;
+}
+
+.sb-table th, td {
+  padding: 10px;
+}
+
+.sb-table th {
+  border-right: 1px solid #191A1F;
+  border-bottom: 1px solid #191A1F;
+}
+
+.sb-table th:last-child {
+  border-right: none;
+}
+
+.sb-table tbody {
+  background-color: #31363F;
+}
