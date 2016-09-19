@@ -8,11 +8,19 @@ export default class ReactTable extends React.Component {
     rows: Array<Object>,
     columns: Array<Column>,
 
+    classTable?: string,
+    classHeader?: string,
+    classHeaderRow?: string,
+    classHeaderColumn?: string,
+    classBody?: string,
+    classBodyRow?: string,
+    classBodyColumn?: string,
+
     sort(sortInfo: SortInfo, rows: Array<Object>): Array<Object>,
     rowKey(row: Object): string,
 
     renderHeaderColumn(column: Column): Object,
-    renderRowColumn(row: Object, column: string): Object,
+    renderBodyColumn(row: Object, column: string): Object,
   };
 
   render() {
@@ -20,11 +28,19 @@ export default class ReactTable extends React.Component {
       rows: givenRows,
       columns,
 
+      classTable = '',
+      classHeader = '',
+      classHeaderRow = '',
+      classHeaderColumn = '',
+      classBody = '',
+      classBodyRow = '',
+      classBodyColumn = '',
+
       rowKey,
       sort,
 
       renderHeaderColumn,
-      renderRowColumn,
+      renderBodyColumn,
     } = this.props
 
     // TODO: Validate input
@@ -36,20 +52,20 @@ export default class ReactTable extends React.Component {
     }
 
     return (
-      <table>
-        <thead>
-          <tr>
+      <table className={classTable}>
+        <thead className={classHeader}>
+          <tr className={classHeaderRow}>
           { columns.map(function(column) {
-            return <th>{renderHeaderColumn(column)}</th>
+            return <th className={classHeaderColumn}>{renderHeaderColumn(column)}</th>
           }) }
           </tr>
         </thead>
-        <tbody>
+        <tbody className={classBody}>
           { rows.map(function(row) {
             const key = rowKey(row)
-            return <tr key={key}>
+            return <tr key={key} className={classBodyRow}>
               {columns.map(function(column) {
-                return <td key={`${key}.${column.key}`}>{renderRowColumn(row, column.key)}</td>
+                return <td className={classBodyColumn} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
               })}
             </tr>
           }) }
