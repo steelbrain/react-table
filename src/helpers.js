@@ -14,3 +14,9 @@ export function validateProps(props: Props): void {
   invariant(typeof props.renderHeaderColumn === 'function', 'renderHeaderColumn must be a function')
   invariant(typeof props.renderBodyColumn === 'function', 'renderBodyColumn must be a function')
 }
+
+export const ARROW = {
+  UP: '↑',
+  DOWN: '↓',
+  BOTH: '⇅',
+}

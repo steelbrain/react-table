@@ -20,6 +20,19 @@
   border-right: none;
 }
 
+.sb-table th.sortable {
+  cursor: pointer;
+}
+
+.sb-table th .sort-icon {
+  width: 1em;
+  display: inline-block;
+  visibility: hidden;
+}
+.sb-table th:hover .sort-icon {
+  visibility: visible;
+}
+
 /* Light Theme (default) */
 
 .sb-table {
