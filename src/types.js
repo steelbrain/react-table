@@ -3,7 +3,7 @@
 export type Column = { key: string, label: string, sortable?: boolean }
 export type SortInfo = Array<{ key: string, type: 'asc' | 'desc' }>
 
-export type State = { sort: SortInfo }
+export type State = { sort: ?SortInfo }
 export type Props = {
   rows: Array<Object>,
   columns: Array<Column>,
@@ -11,6 +11,7 @@ export type Props = {
   style?: Object,
   className?: string,
 
+  initialSort?: SortInfo,
   sort(sortInfo: SortInfo, rows: Array<Object>): Array<Object>,
   rowKey(row: Object): string,
 

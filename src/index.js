@@ -7,7 +7,7 @@ import type { Props, State } from './types'
 // TODO: Implement sorting interface
 export default class ReactTable extends React.Component {
   props: Props;
-  state: State = { sort: [] };
+  state: State = { sort: null };
 
   render() {
     const {
@@ -23,8 +23,9 @@ export default class ReactTable extends React.Component {
     validateProps(this.props)
 
     let rows = givenRows
-    if (this.state.sort.length) {
-      rows = sort(this.state.sort, rows)
+    const sortInfo = this.state.sort || this.props.initialSort || []
+    if (sortInfo.length) {
+      rows = sort(sortInfo, rows)
     }
 
     return (
