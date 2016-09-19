@@ -1,6 +1,6 @@
 /* @flow */
 
-export type Column = { key: string, label: string, sortable?: boolean }
+export type Column = { key: string, label: string, sortable?: boolean, onClick?: Function }
 export type SortInfo = Array<{ column: string, type: 'asc' | 'desc' }>
 
 export type State = { sort: ?SortInfo }

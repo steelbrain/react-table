@@ -86,7 +86,7 @@ export default class ReactTable extends React.Component {
             const key = rowKey(row)
             return <tr key={key}>
               {columns.map(function(column) {
-                return <td key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
+                return <td onClick={column.onClick} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
               })}
             </tr>
           }) }
