@@ -8,13 +8,7 @@ export default class ReactTable extends React.Component {
     rows: Array<Object>,
     columns: Array<Column>,
 
-    classTable?: string,
-    classHeader?: string,
-    classHeaderRow?: string,
-    classHeaderColumn?: string,
-    classBody?: string,
-    classBodyRow?: string,
-    classBodyColumn?: string,
+    className?: string,
 
     sort(sortInfo: SortInfo, rows: Array<Object>): Array<Object>,
     rowKey(row: Object): string,
@@ -28,13 +22,7 @@ export default class ReactTable extends React.Component {
       rows: givenRows,
       columns,
 
-      classTable = '',
-      classHeader = '',
-      classHeaderRow = '',
-      classHeaderColumn = '',
-      classBody = '',
-      classBodyRow = '',
-      classBodyColumn = '',
+      className = '',
 
       rowKey,
       sort,
@@ -52,20 +40,20 @@ export default class ReactTable extends React.Component {
     }
 
     return (
-      <table className={`sb-table ${classTable}`} style={this.props.style}>
-        <thead className={classHeader}>
-          <tr className={classHeaderRow}>
+      <table className={`sb-table ${className}`} style={this.props.style}>
+        <thead>
+          <tr>
           { columns.map(function(column) {
-            return <th className={classHeaderColumn}>{renderHeaderColumn(column)}</th>
+            return <th>{renderHeaderColumn(column)}</th>
           }) }
           </tr>
         </thead>
-        <tbody className={classBody}>
+        <tbody>
           { rows.map(function(row) {
             const key = rowKey(row)
-            return <tr key={key} className={classBodyRow}>
+            return <tr key={key}>
               {columns.map(function(column) {
-                return <td className={classBodyColumn} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
+                return <td key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
               })}
             </tr>
           }) }
