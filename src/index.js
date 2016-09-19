@@ -52,7 +52,7 @@ export default class ReactTable extends React.Component {
     }
 
     return (
-      <table className={`sb-table ${classTable}`}>
+      <table className={`sb-table ${classTable}`} style={this.props.style}>
         <thead className={classHeader}>
           <tr className={classHeaderRow}>
           { columns.map(function(column) {

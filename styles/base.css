@@ -1,27 +1,39 @@
+/* Base Styles */
+
 .sb-table {
+  border: 1px solid #fff;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  border-collapse: collapse;
-  border: 1px solid #191A1F;
   text-align: left;
-  color: #939CAA;
   font-size: 14px;
+  border-collapse: collapse;
+}
+
+.sb-table th, td {
+  padding: 10px;
+}
+.sb-table th {
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.sb-table th:last-child {
+  border-right: none;
+}
+
+/* Dark Theme */
+
+.sb-table {
+  color: #939CAA;
+  border-color: #191A1F;
 }
 
 .sb-table thead {
   background-color: #282C34;
 }
 
-.sb-table th, td {
-  padding: 10px;
-}
-
 .sb-table th {
-  border-right: 1px solid #191A1F;
-  border-bottom: 1px solid #191A1F;
-}
-
-.sb-table th:last-child {
-  border-right: none;
+  border-right-color: #191A1F;
+  border-bottom-color: #191A1F;
 }
 
 .sb-table tbody {
