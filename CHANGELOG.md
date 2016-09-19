@@ -1,10 +1,7 @@
-## 1.0.0
-
-- Initial implementation
-
 ## 0.2.0
 
 - Implement sorting support
+- Support `onClick` in `Column` type
 
 ## 0.1.0
 
