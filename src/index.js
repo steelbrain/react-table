@@ -1,42 +1,30 @@
 /* @flow */
 
 import React from 'react'
-import type { Column, SortInfo } from './types'
+import { validateProps } from './helpers'
+import type { Props, State } from './types'
 
+// TODO: Implement sorting interface
 export default class ReactTable extends React.Component {
-  props: {
-    rows: Array<Object>,
-    columns: Array<Column>,
-
-    className?: string,
-
-    sort(sortInfo: SortInfo, rows: Array<Object>): Array<Object>,
-    rowKey(row: Object): string,
-
-    renderHeaderColumn(column: Column): Object,
-    renderBodyColumn(row: Object, column: string): Object,
-  };
+  props: Props;
+  state: State = { sort: [] };
 
   render() {
     const {
       rows: givenRows,
       columns,
-
       className = '',
-
       rowKey,
       sort,
-
       renderHeaderColumn,
       renderBodyColumn,
     } = this.props
 
-    // TODO: Validate input
+    validateProps(this.props)
 
     let rows = givenRows
-    // TODO: Store sorting info in state and use it here
-    if (Math.random() === 'something') {
-      rows = sort([], rows)
+    if (this.state.sort.length) {
+      rows = sort(this.state.sort, rows)
     }
 
     return (
