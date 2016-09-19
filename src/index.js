@@ -12,8 +12,7 @@ export default class ReactTable extends React.Component {
     const sort = this.state.sort
     if (Array.isArray(sort)) {
       for (let i = 0, length = sort.length; i < length; ++i) {
-        const entry = sort[i]
-        if (entry.column === column) {
+        if (sort[i].column === column) {
           return i
         }
       }
@@ -87,7 +86,7 @@ export default class ReactTable extends React.Component {
             const key = rowKey(row)
             return <tr key={key}>
               {columns.map(function(column) {
-                return <td key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
+                return <td onClick={column.onClick} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
               })}
             </tr>
           }) }
