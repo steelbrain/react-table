@@ -19,6 +19,10 @@
     "url": "https://github.com/steelbrain/react-table/issues"
   },
   "homepage": "https://github.com/steelbrain/react-table#readme",
+  "peerDependencies": {
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "babel-preset-steelbrain": "^4.0.2",
