@@ -20,15 +20,15 @@
   border-right: none;
 }
 
-/* Dark Theme */
+/* Light Theme (default) */
 
 .sb-table {
-  color: #939CAA;
+  color: black;
   border-color: #191A1F;
 }
 
 .sb-table thead {
-  background-color: #282C34;
+  background-color: #e6e6e6;
 }
 
 .sb-table th {
@@ -37,5 +37,25 @@
 }
 
 .sb-table tbody {
+  background-color: #fafafa;
+}
+
+/* Dark Theme */
+
+.sb-table.dark {
+  color: #939CAA;
+  border-color: #191A1F;
+}
+
+.sb-table.dark thead {
+  background-color: #282C34;
+}
+
+.sb-table.dark th {
+  border-right-color: #191A1F;
+  border-bottom-color: #191A1F;
+}
+
+.sb-table.dark tbody {
   background-color: #31363F;
 }
