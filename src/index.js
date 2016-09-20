@@ -79,7 +79,7 @@ export default class ReactTable extends React.Component {
         <thead>
           <tr>
             { columns.map(column =>
-              <th className={column.sortable && 'sortable'} onClick={column.sortable && this.generateSortCallback(column.key)}>
+              <th key={column.key} className={column.sortable && 'sortable'} onClick={column.sortable && this.generateSortCallback(column.key)}>
                 {renderHeaderColumn(column)} {column.sortable && this.renderHeaderIcon(column.key)}
               </th>) }
           </tr>
