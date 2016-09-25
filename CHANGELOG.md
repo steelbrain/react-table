@@ -1,3 +1,7 @@
+## 0.2.1
+
+- Minor enhancements to structure
+
 ## 0.2.0
 
 - Implement sorting support
