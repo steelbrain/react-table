@@ -1,3 +1,4 @@
+.flowconfig
 node_modules
 /src
 /spec
