@@ -4,7 +4,7 @@ import React from 'react'
 import { validateProps, ARROW } from './helpers'
 import type { Props, State, SortInfo } from './types'
 
-export default class ReactTable extends React.Component {
+class ReactTable extends React.Component {
   props: Props;
   state: State = { sort: null };
 
@@ -62,8 +62,8 @@ export default class ReactTable extends React.Component {
       className = '',
       rowKey,
       sort,
-      renderHeaderColumn,
-      renderBodyColumn,
+      renderHeaderColumn = ReactTable.defaultHeaderRenderer,
+      renderBodyColumn = ReactTable.defaultBodyRenderer,
     } = this.props
 
     validateProps(this.props)
@@ -100,4 +100,19 @@ export default class ReactTable extends React.Component {
       </table>
     )
   }
+  static defaultHeaderRenderer(item: any) {
+    if (typeof item !== 'string') {
+      throw new Error('Non-string header array fed to sb-react-table without renderHeaderColumn prop')
+    }
+    return item
+  }
+  static defaultBodyRenderer(row: Object, column: string) {
+    const value = row[column]
+    if (typeof value !== 'string') {
+      throw new Error('Non-predictable rows fed to sb-react-table without renderBodyColumn prop')
+    }
+    return value
+  }
 }
+
+module.exports = ReactTable
