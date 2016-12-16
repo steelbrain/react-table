@@ -4,3 +4,4 @@ node_modules
 /spec
 .DS_Store
 /tmp
+decls
