@@ -1,3 +1,8 @@
+## 1.0.0
+
+- Add docs
+- Add default renderers for header and body
+
 ## 0.2.1
 
 - Minor enhancements to structure
