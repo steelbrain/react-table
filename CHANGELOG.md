@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Fix typo in css file
+
 ## 1.0.0
 
 - Add docs
