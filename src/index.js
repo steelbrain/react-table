@@ -87,14 +87,14 @@ class ReactTable extends React.Component {
         <tbody>
           { rows.map(function(row) {
             const key = rowKey(row)
-            return <tr key={key}>
+            return (<tr key={key}>
               {columns.map(function(column) {
                 const givenOnClick = column.onClick
                 const onClick = givenOnClick && function(e) { givenOnClick(e, row) }
 
-                return <td onClick={onClick} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
+                return (<td onClick={onClick} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>)
               })}
-            </tr>
+            </tr>)
           }) }
         </tbody>
       </table>
