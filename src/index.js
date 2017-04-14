@@ -92,7 +92,7 @@ class ReactTable extends React.Component {
                 const givenOnClick = column.onClick
                 const onClick = givenOnClick && function(e) { givenOnClick(e, row) }
 
-                return <td onClick={onClick} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>
+                return (<td onClick={onClick} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>)
               })}
             </tr>
           }) }
