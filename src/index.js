@@ -4,9 +4,23 @@ import React from 'react'
 import { validateProps, ARROW } from './helpers'
 import type { Props, State, SortInfo } from './types'
 
-class ReactTable extends React.Component {
-  props: Props;
+class ReactTable extends React.Component<Props, State> {
+  static defaultHeaderRenderer(item: any) {
+    if (typeof item !== 'string') {
+      throw new Error('Non-string header array fed to sb-react-table without renderHeaderColumn prop')
+    }
+    return item
+  }
+  static defaultBodyRenderer(row: Object, column: string) {
+    const value = row[column]
+    if (typeof value !== 'string') {
+      throw new Error('Non-predictable rows fed to sb-react-table without renderBodyColumn prop')
+    }
+    return value
+  }
+
   state: State = { sort: null };
+  props: Props;
 
   get sort(): SortInfo {
     return this.state.sort || this.props.initialSort || []
@@ -99,19 +113,6 @@ class ReactTable extends React.Component {
         </tbody>
       </table>
     )
-  }
-  static defaultHeaderRenderer(item: any) {
-    if (typeof item !== 'string') {
-      throw new Error('Non-string header array fed to sb-react-table without renderHeaderColumn prop')
-    }
-    return item
-  }
-  static defaultBodyRenderer(row: Object, column: string) {
-    const value = row[column]
-    if (typeof value !== 'string') {
-      throw new Error('Non-predictable rows fed to sb-react-table without renderBodyColumn prop')
-    }
-    return value
   }
 }
 
