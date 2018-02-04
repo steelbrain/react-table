@@ -5,6 +5,11 @@ import { validateProps, ARROW } from './helpers'
 import type { Props, State, SortInfo } from './types'
 
 class ReactTable extends React.Component<Props, State> {
+  static defaultProps = {
+    style: null,
+    className: null,
+    initialSort: null,
+  }
   static defaultHeaderRenderer(item: any) {
     if (typeof item !== 'string') {
       throw new Error('Non-string header array fed to sb-react-table without renderHeaderColumn prop')
