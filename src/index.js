@@ -24,14 +24,13 @@ class ReactTable extends React.Component<Props, State> {
     return value
   }
 
-  state: State = { sort: null };
-  props: Props;
-
-  get sort(): SortInfo {
+  state: State = { sort: null }
+  getSort(): SortInfo {
     return this.state.sort || this.props.initialSort || []
   }
+  props: Props
   findSortItemByKey(column: string): number {
-    const sort = this.sort
+    const sort = this.getSort()
     if (Array.isArray(sort)) {
       for (let i = 0, length = sort.length; i < length; ++i) {
         if (sort[i].column === column) {
@@ -43,7 +42,7 @@ class ReactTable extends React.Component<Props, State> {
   }
   generateSortCallback(column: string) {
     return (e: MouseEvent) => {
-      let sort = this.sort
+      let sort = this.getSort()
       const append = e.shiftKey
 
       const index = this.findSortItemByKey(column)
@@ -64,7 +63,7 @@ class ReactTable extends React.Component<Props, State> {
     }
   }
   renderHeaderIcon(column: string) {
-    const sort = this.sort
+    const sort = this.getSort()
     const index = sort ? this.findSortItemByKey(column) : -1
     let icon = ARROW.BOTH
     if (sort && index !== -1) {
@@ -88,7 +87,7 @@ class ReactTable extends React.Component<Props, State> {
     validateProps(this.props)
 
     let rows = givenRows
-    const sortInfo = this.sort
+    const sortInfo = this.getSort()
     if (sortInfo.length) {
       rows = sort(sortInfo, rows)
     }
@@ -97,24 +96,39 @@ class ReactTable extends React.Component<Props, State> {
       <table className={`sb-table ${className}`} style={this.props.style}>
         <thead>
           <tr>
-            { columns.map(column =>
-              <th key={column.key} className={column.sortable && 'sortable'} onClick={column.sortable && this.generateSortCallback(column.key)}>
+            {columns.map(column => (
+              <th
+                key={column.key}
+                className={column.sortable && 'sortable'}
+                onClick={column.sortable && this.generateSortCallback(column.key)}
+              >
                 {renderHeaderColumn(column)} {column.sortable && this.renderHeaderIcon(column.key)}
-              </th>) }
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          { rows.map(function(row) {
+          {rows.map(function(row) {
             const key = rowKey(row)
-            return (<tr key={key}>
-              {columns.map(function(column) {
-                const givenOnClick = column.onClick
-                const onClick = givenOnClick && function(e) { givenOnClick(e, row) }
+            return (
+              <tr key={key}>
+                {columns.map(function(column) {
+                  const givenOnClick = column.onClick
+                  const onClick =
+                    givenOnClick &&
+                    function(e) {
+                      givenOnClick(e, row)
+                    }
 
-                return (<td onClick={onClick} key={`${key}.${column.key}`}>{renderBodyColumn(row, column.key)}</td>)
-              })}
-            </tr>)
-          }) }
+                  return (
+                    <td onClick={onClick} key={`${key}.${column.key}`}>
+                      {renderBodyColumn(row, column.key)}
+                    </td>
+                  )
+                })}
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     )
