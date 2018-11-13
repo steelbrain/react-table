@@ -30,6 +30,6 @@
     "flow-bin": "^0.64.0",
     "jasmine-fix": "^1.0.1",
     "react": "^16.6.2",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.6.2"
   }
 }
