@@ -29,7 +29,7 @@
     "eslint-config-steelbrain": "^4.0.1",
     "flow-bin": "^0.64.0",
     "jasmine-fix": "^1.0.1",
-    "react": "^16.2.0",
+    "react": "^16.7.0",
     "react-dom": "^16.2.0"
   }
 }
