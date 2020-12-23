@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { validateProps, ARROW } from './helpers'
 import type { Props, State, SortInfo } from './types'
 
-export default function ReactTable(props: Props = { style: null, className: null, initialSort: null }) {
   const [state, setState] = useState({sort: null})
+export default function ReactTable(props: Props) {
 
   function defaultHeaderRenderer(item: any) {
     if (typeof item !== 'string') {
