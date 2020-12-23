@@ -1,5 +1,3 @@
-/* @flow */
-
 import React, { useState } from 'react'
 import { validateProps, ARROW } from './helpers'
 import type { Props, State, SortInfo } from './types'

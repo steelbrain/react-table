@@ -1,9 +1,7 @@
-/* @flow */
-
 export type Column = { key: string, label: string, sortable?: boolean, onClick?: ((e: MouseEvent, row: Object) => any) }
 export type SortInfo = Array<{ column: string, type: 'asc' | 'desc' }>
 
-export type State = { sort: ?SortInfo }
+export type State = { sort: SortInfo | null }
 export type Props = {
   rows: Array<Object>,
   columns: Array<Column>,
