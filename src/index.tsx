@@ -33,20 +33,20 @@ export default function ReactTable(props: Props) {
     return -1
   }
   function generateSortCallback(column: string) {
-    return (e: MouseEvent) => {
+    return (e: React.MouseEvent) => {
       let sort = getSort()
       const append = e.shiftKey
 
       const index = findSortItemByKey(column)
       if (index < 0) {
-        const value = { column, type: 'asc' }
+        const value: { column: string, type: 'asc' | 'desc' } = { column, type: 'asc' }
         sort = append ? sort : []
         sort.push(value)
       } else {
-        const value: Object = sort[index]
+        const value: { column: string, type: 'asc' | 'desc' | null } = sort[index]
         value.type = value.type === 'asc' ? 'desc' : null
         if (!append) {
-          sort = value.type ? [value] : []
+          sort = (value.type !== null ? [value] : []) as SortInfo
         } else if (!value.type) {
           sort.splice(index, 1)
         }
