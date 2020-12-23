@@ -1,4 +1,4 @@
-export type Column = { key: string, label: string, sortable?: boolean, onClick?: ((e: MouseEvent, row: Object) => any) }
+export type Column = { key: string, label: string, sortable?: boolean, onClick?: ((e: React.MouseEvent, row: Object) => any) }
 export type SortInfo = Array<{ column: string, type: 'asc' | 'desc' }>
 
 export type State = { sort: SortInfo | null }

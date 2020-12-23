@@ -91,8 +91,8 @@ export default function ReactTable(props: Props) {
             {columns.map(column => (
               <th
                 key={column.key}
-                className={column.sortable && 'sortable'}
-                onClick={column.sortable && generateSortCallback(column.key)}
+                className={column.sortable ? 'sortable' : undefined}
+                onClick={column.sortable ? generateSortCallback(column.key) : undefined}
               >
                 {renderHeaderColumn(column)} {column.sortable && renderHeaderIcon(column.key)}
               </th>
@@ -108,7 +108,7 @@ export default function ReactTable(props: Props) {
                   const givenOnClick = column.onClick
                   const onClick =
                     givenOnClick &&
-                    function(e) {
+                    function(e: React.MouseEvent) {
                       givenOnClick(e, row)
                     }
 
