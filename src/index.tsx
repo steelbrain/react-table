@@ -3,7 +3,7 @@ import { validateProps, validateSortInfo, ARROW } from './helpers'
 import type { Props, State, SortInfo } from './types'
 
 export default function ReactTable(props: Props) {
-  const [state, setState] = useState<State>({sort: null})
+  const [state, setState] = useState<State>({ sort: null })
 
   function defaultHeaderRenderer(item: any) {
     if (typeof item !== 'string') {
@@ -39,11 +39,11 @@ export default function ReactTable(props: Props) {
 
       const index = findSortItemByKey(column)
       if (index < 0) {
-        const value: { column: string, type: 'asc' | 'desc' } = { column, type: 'asc' }
+        const value: { column: string; type: 'asc' | 'desc' } = { column, type: 'asc' }
         sort = append ? sort : []
         sort.push(value)
       } else {
-        const value: { column: string, type: 'asc' | 'desc' | null } = sort[index]
+        const value: { column: string; type: 'asc' | 'desc' | null } = sort[index]
         value.type = value.type === 'asc' ? 'desc' : null
         if (!append) {
           sort = (value.type !== null ? [value] : []) as SortInfo
@@ -65,63 +65,63 @@ export default function ReactTable(props: Props) {
     return <span className="sort-icon">{icon}</span>
   }
 
-    const {
-      rows: givenRows,
-      columns,
-      className = '',
-      rowKey,
-      sort,
-      renderHeaderColumn = defaultHeaderRenderer,
-      renderBodyColumn = defaultBodyRenderer,
-    } = props
+  const {
+    rows: givenRows,
+    columns,
+    className = '',
+    rowKey,
+    sort,
+    renderHeaderColumn = defaultHeaderRenderer,
+    renderBodyColumn = defaultBodyRenderer,
+  } = props
 
-    validateProps(props)
+  validateProps(props)
 
-    let rows = givenRows
-    const sortInfo = getSort()
-    validateSortInfo(sortInfo)
-    if (sortInfo.length) {
-      rows = sort(sortInfo, rows)
-    }
+  let rows = givenRows
+  const sortInfo = getSort()
+  validateSortInfo(sortInfo)
+  if (sortInfo.length) {
+    rows = sort(sortInfo, rows)
+  }
 
-    return (
-      <table className={`sb-table ${className}`} style={props.style}>
-        <thead>
-          <tr>
-            {columns.map(column => (
-              <th
-                key={column.key}
-                className={column.sortable ? 'sortable' : undefined}
-                onClick={column.sortable ? generateSortCallback(column.key) : undefined}
-              >
-                {renderHeaderColumn(column)} {column.sortable && renderHeaderIcon(column.key)}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(function(row) {
-            const key = rowKey(row)
-            return (
-              <tr key={key}>
-                {columns.map(function(column) {
-                  const givenOnClick = column.onClick
-                  const onClick =
-                    givenOnClick &&
-                    function(e: React.MouseEvent) {
-                      givenOnClick(e, row)
-                    }
+  return (
+    <table className={`sb-table ${className}`} style={props.style}>
+      <thead>
+        <tr>
+          {columns.map((column) => (
+            <th
+              key={column.key}
+              className={column.sortable ? 'sortable' : undefined}
+              onClick={column.sortable ? generateSortCallback(column.key) : undefined}
+            >
+              {renderHeaderColumn(column)} {column.sortable && renderHeaderIcon(column.key)}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map(function (row) {
+          const key = rowKey(row)
+          return (
+            <tr key={key}>
+              {columns.map(function (column) {
+                const givenOnClick = column.onClick
+                const onClick =
+                  givenOnClick &&
+                  function (e: React.MouseEvent) {
+                    givenOnClick(e, row)
+                  }
 
-                  return (
-                    <td onClick={onClick} key={`${key}.${column.key}`}>
-                      {renderBodyColumn(row, column.key)}
-                    </td>
-                  )
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-    )
+                return (
+                  <td onClick={onClick} key={`${key}.${column.key}`}>
+                    {renderBodyColumn(row, column.key)}
+                  </td>
+                )
+              })}
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+  )
 }
