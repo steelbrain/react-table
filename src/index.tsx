@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { validateProps, ARROW } from './helpers'
+import { validateProps, validateSortInfo, ARROW } from './helpers'
 import type { Props, State, SortInfo } from './types'
 
 export default function ReactTable(props: Props) {
@@ -79,6 +79,7 @@ export default function ReactTable(props: Props) {
 
     let rows = givenRows
     const sortInfo = getSort()
+    validateSortInfo(sortInfo)
     if (sortInfo.length) {
       rows = sort(sortInfo, rows)
     }
