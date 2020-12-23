@@ -1,36 +1,30 @@
 /* @flow */
 
-import React from 'react'
+import React, { useState } from 'react'
 import { validateProps, ARROW } from './helpers'
 import type { Props, State, SortInfo } from './types'
 
-class ReactTable extends React.Component<Props, State> {
-  static defaultProps = {
-    style: null,
-    className: null,
-    initialSort: null,
-  }
-  static defaultHeaderRenderer(item: any) {
+export default function ReactTable(props: Props = { style: null, className: null, initialSort: null }) {
+  const [state, setState] = useState({sort: null})
+
+  function defaultHeaderRenderer(item: any) {
     if (typeof item !== 'string') {
       throw new Error('Non-string header array fed to sb-react-table without renderHeaderColumn prop')
     }
     return item
   }
-  static defaultBodyRenderer(row: Object, column: string) {
+  function defaultBodyRenderer(row: Object, column: string) {
     const value = row[column]
     if (typeof value !== 'string') {
       throw new Error('Non-predictable rows fed to sb-react-table without renderBodyColumn prop')
     }
     return value
   }
-
-  state: State = { sort: null }
-  getSort(): SortInfo {
-    return this.state.sort || this.props.initialSort || []
+  function getSort(): SortInfo {
+    return state.sort || props.initialSort || []
   }
-  props: Props
-  findSortItemByKey(column: string): number {
-    const sort = this.getSort()
+  function findSortItemByKey(column: string): number {
+    const sort = getSort()
     if (Array.isArray(sort)) {
       for (let i = 0, length = sort.length; i < length; ++i) {
         if (sort[i].column === column) {
@@ -40,12 +34,12 @@ class ReactTable extends React.Component<Props, State> {
     }
     return -1
   }
-  generateSortCallback(column: string) {
+  function generateSortCallback(column: string) {
     return (e: MouseEvent) => {
-      let sort = this.getSort()
+      let sort = getSort()
       const append = e.shiftKey
 
-      const index = this.findSortItemByKey(column)
+      const index = findSortItemByKey(column)
       if (index < 0) {
         const value = { column, type: 'asc' }
         sort = append ? sort : []
@@ -59,12 +53,12 @@ class ReactTable extends React.Component<Props, State> {
           sort.splice(index, 1)
         }
       }
-      this.setState({ sort })
+      setState({ sort })
     }
   }
-  renderHeaderIcon(column: string) {
-    const sort = this.getSort()
-    const index = sort ? this.findSortItemByKey(column) : -1
+  function renderHeaderIcon(column: string) {
+    const sort = getSort()
+    const index = sort ? findSortItemByKey(column) : -1
     let icon = ARROW.BOTH
     if (sort && index !== -1) {
       icon = sort[index].type === 'asc' ? ARROW.UP : ARROW.DOWN
@@ -73,36 +67,35 @@ class ReactTable extends React.Component<Props, State> {
     return <span className="sort-icon">{icon}</span>
   }
 
-  render() {
     const {
       rows: givenRows,
       columns,
       className = '',
       rowKey,
       sort,
-      renderHeaderColumn = ReactTable.defaultHeaderRenderer,
-      renderBodyColumn = ReactTable.defaultBodyRenderer,
-    } = this.props
+      renderHeaderColumn = defaultHeaderRenderer,
+      renderBodyColumn = defaultBodyRenderer,
+    } = props
 
-    validateProps(this.props)
+    validateProps(props)
 
     let rows = givenRows
-    const sortInfo = this.getSort()
+    const sortInfo = getSort()
     if (sortInfo.length) {
       rows = sort(sortInfo, rows)
     }
 
     return (
-      <table className={`sb-table ${className}`} style={this.props.style}>
+      <table className={`sb-table ${className}`} style={props.style}>
         <thead>
           <tr>
             {columns.map(column => (
               <th
                 key={column.key}
                 className={column.sortable && 'sortable'}
-                onClick={column.sortable && this.generateSortCallback(column.key)}
+                onClick={column.sortable && generateSortCallback(column.key)}
               >
-                {renderHeaderColumn(column)} {column.sortable && this.renderHeaderIcon(column.key)}
+                {renderHeaderColumn(column)} {column.sortable && renderHeaderIcon(column.key)}
               </th>
             ))}
           </tr>
@@ -132,7 +125,4 @@ class ReactTable extends React.Component<Props, State> {
         </tbody>
       </table>
     )
-  }
 }
-
-module.exports = ReactTable
