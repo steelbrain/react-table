@@ -1,5 +1,6 @@
 # ReactTable
 
+![CI](https://github.com/aminya/steelbrain/workflows/CI/badge.svg)
 [![Greenkeeper badge](https://badges.greenkeeper.io/steelbrain/react-table.svg)](https://greenkeeper.io/)
 
 React-Table is an efficient React table component that gives you freedom.
