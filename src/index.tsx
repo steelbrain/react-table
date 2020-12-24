@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { validateProps, validateSortInfo, ARROW } from './helpers'
-import type { Props, State, SortInfo } from './types'
+import type { Props, State, SortInfo, AnyObject } from './types'
 
 export default function ReactTable(props: Props) {
   const [state, setState] = useState<State>({ sort: null })
@@ -11,7 +11,7 @@ export default function ReactTable(props: Props) {
     }
     return item
   }
-  function defaultBodyRenderer(row: Object, column: string) {
+  function defaultBodyRenderer(row: AnyObject, column: string) {
     const value = row[column]
     if (typeof value !== 'string') {
       throw new Error('Non-predictable rows fed to sb-react-table without renderBodyColumn prop')
