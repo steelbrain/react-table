@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { validateProps, validateSortInfo, ARROW } from './helpers'
 import type { Props, State, SortInfo, AnyObject } from './types'
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 export default function ReactTable(props: Props) {
   const [state, setState] = useState<State>({ sort: null })
 
@@ -75,11 +77,15 @@ export default function ReactTable(props: Props) {
     renderBodyColumn = defaultBodyRenderer,
   } = props
 
-  validateProps(props)
-
   let rows = givenRows
   const sortInfo = getSort()
-  validateSortInfo(sortInfo)
+
+  // only validate when not in production
+  if (!isProduction) {
+    validateProps(props)
+    validateSortInfo(sortInfo)
+  }
+
   if (sortInfo.length) {
     rows = sort(sortInfo, rows)
   }
