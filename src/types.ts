@@ -1,22 +1,41 @@
 // util types
 export type AnyObject = Record<string, any>
-type Renderable = any
+export type Renderable = any
 
-export type Column = { key: string; label: string; sortable?: boolean; onClick?(e: React.MouseEvent, row: AnyObject): void }
-export type SortInfo = Array<{ column: string; type: 'asc' | 'desc' }>
+// row and column types
+export type Key = string
+export type Row<K extends Key = string, V = any> = Record<K, V>
 
-export type State = { sort: SortInfo | null }
-export type Props = {
-  rows: Array<AnyObject>
-  columns: Array<Column>
+export type Column<K extends Key = string, V = any> = {
+  key: K
+  label: string
+  sortable?: boolean
+  onClick?(e: MouseEvent | React.MouseEvent, row: Row<K, V>): void
+}
 
+// sort info
+export type SortInfo<K = Key> = Array<{ column: K; type: "asc" | "desc" }>
+
+// Props
+export type Props<K extends Key = string, V = any> = {
+  // row and column
+  rows: Array<Row<K, V>>
+  columns: Array<Column<K, V>>
+
+  // renderers
+  renderHeaderColumn?(column: Column): string | Renderable
+  renderBodyColumn?(row: Row, column: K): string | Renderable
+
+  // styles
   style?: AnyObject
   className?: string
 
-  initialSort?: SortInfo
-  sort(sortInfo: SortInfo, rows: Array<AnyObject>): Array<AnyObject>
-  rowKey(row: AnyObject): string
+  // sort options
+  initialSort?: SortInfo<K>
+  sort(sortInfo: SortInfo<K>, rows: Array<Row>): Array<Row>
 
-  renderHeaderColumn(column: Column): string | Renderable
-  renderBodyColumn(row: AnyObject, column: string): string | Renderable
+  /** a function that takes row and returns string unique key for that row */
+  rowKey(row: Row): string
 }
+
+export type State = { sort: SortInfo | null }

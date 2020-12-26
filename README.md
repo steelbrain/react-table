@@ -13,16 +13,7 @@ npm install --save sb-react-table
 
 ## API
 
-```js
-type Row = Object | Array
-type Column = {
-   key: string,
-   label: string,
-   sortable?: boolean,
-   onClick?: ((e: MouseEvent, row: Object) => any),
-}
-type SortInfo = Array<{ column: string, type: 'asc' | 'desc' }>
-
+```ts
 <ReactTable
   rows: Array<Row>,
   columns: Array<Column>,
@@ -37,7 +28,27 @@ type SortInfo = Array<{ column: string, type: 'asc' | 'desc' }>
 
   renderHeaderColumn?: ((headerColumn: any) => string),
   renderBodyColumn?: ((row: Object, column: string) => string),
-/>
+/>;
+```
+in which
+```ts
+// util types
+export type AnyObject = Record<string, any>
+export type Renderable = any
+
+// row and column types
+export type Key = string
+export type Row<K extends Key = string, V = any> = Record<K, V>
+
+export type Column<K extends Key = string, V = any> = {
+  key: K
+  label: string
+  sortable?: boolean
+  onClick?(e: MouseEvent | React.MouseEvent, row: Row<K, V>): void
+}
+
+// sort info
+export type SortInfo<K = Key> = Array<{ column: K, type: "asc" | "desc" }>;
 ```
 
 ## Usage
