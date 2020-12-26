@@ -68,7 +68,6 @@ export default function ReactTable(props: Props) {
   }
 
   const {
-    rows: givenRows,
     columns,
     className = '',
     rowKey,
@@ -77,7 +76,6 @@ export default function ReactTable(props: Props) {
     renderBodyColumn = defaultBodyRenderer,
   } = props
 
-  let rows = givenRows
   const sortInfo = getSort()
 
   // only validate when not in production
@@ -87,7 +85,7 @@ export default function ReactTable(props: Props) {
   }
 
   if (sortInfo.length) {
-    rows = sort(sortInfo, rows)
+    props.rows = sort(sortInfo, props.rows)
   }
 
   return (
@@ -106,7 +104,7 @@ export default function ReactTable(props: Props) {
         </tr>
       </thead>
       <tbody>
-        {rows.map(function (row) {
+        {props.rows.map(function (row) {
           const key = rowKey(row)
           return (
             <tr key={key}>
