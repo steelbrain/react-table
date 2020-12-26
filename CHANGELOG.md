@@ -1,3 +1,7 @@
+## 2.0.0
+- Converted the library to TypeScript
+- Uses React hooks
+
 ## 1.0.2
 
 - Upgrade to support v16 (no actual changes needed)

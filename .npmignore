@@ -1,6 +1,5 @@
 .flowconfig
 node_modules
-/src
 /spec
 .DS_Store
 /tmp
